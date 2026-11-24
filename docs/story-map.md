@@ -41,7 +41,7 @@ every side.
 | Pick up, drop off | Mark picked up · Mark delivered |
 | Follow progress | See status: placed, accepted, ready, on the way, delivered |
 | Hear what changed | Email at each status change |
-| Look up an order | See an order and its timeline (gshop admin) |
+| Look up an order | See an order and its timeline |
 
 ## R1 — A real kitchen
 

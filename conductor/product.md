@@ -21,9 +21,10 @@ kitchen, R2 real dispatch, R3 trust and care. Stories in
 service repo.
 
 ## Services
-Platform services reused (user, payment, notification, order, catalog, cart) and
-gfood's own (restaurant, dispatch): [`../app.yaml`](../app.yaml).
+Decided as the stories start, under gfood's
+[reuse rule](../README.md#reuse-is-harvested).
 
 ## Goals
-- Prove gluon's reuse: gfood's skeleton needs no fork of a platform service.
+- Show gluon as a substrate: gfood built from its services, tools, libraries and ways
+  of working.
 - A demo that runs end to end in the sandbox and on the laptop, like gshop.

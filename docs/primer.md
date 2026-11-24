@@ -81,22 +81,3 @@ before payment costs. A small-order fee usually tops up baskets under a minimum.
   arrived" claims.
 - **Commission**: the platform's share of the basket, taken from the restaurant's
   payout.
-
-## How it lands on gluon
-
-First guess: platform services reused as they are where their API
-has no gfood nouns; new services written concretely for gfood. Also in
-[`../app.yaml`](../app.yaml).
-
-| Service | In gfood | Fit |
-| --- | --- | --- |
-| user | Customers, plus restaurant staff and couriers as roles | roles? |
-| payment | Authorise at checkout, capture on delivery, refunds | as is |
-| notification | Every status change to the customer | as is |
-| order | The order and its lifecycle; restaurant and courier steps arrive as events | check states |
-| catalog | Menus, grouped by restaurant; modifiers in Release 1 | grouping, modifiers |
-| cart | Basket, one restaurant per basket | small rule |
-| inventory | Probably not used: sold out is a flag, not a count | open |
-| fulfilment | Replaced by dispatch | not used |
-| restaurant-service | Restaurants, hours, zones, accept or reject, prep time, ready | new |
-| dispatch-service | Couriers online, offers, assignment, pick-up, delivery, tracking | new |

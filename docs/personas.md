@@ -69,5 +69,5 @@ sets.
   action; spot repeat claimers.
 - **Frustrations:** piecing events together from several screens; refund rules applied
   by hand.
-- **Drives:** order lookup and timeline (reuse gshop admin), refund or cancel, reassign
+- **Drives:** order lookup and timeline, refund or cancel, reassign
   courier.

@@ -190,26 +190,6 @@ footer { color: var(--muted); font-size: 0.85rem; }
         <div><dt>Commission</dt><dd>The platform's share of the basket, taken from the restaurant's payout.</dd></div>
       </dl>
     </div>
-
-    <div class="stack">
-      <h3>How it lands on gluon</h3>
-      <p class="muted">First guess: platform services reused as they are where their API has no gfood nouns; new services written concretely for gfood.</p>
-      <div class="tablebox"><table>
-        <thead><tr><th>Service</th><th>In gfood</th><th>Fit</th></tr></thead>
-        <tbody>
-          <tr><td>user</td><td>Customers, plus restaurant staff and couriers as roles</td><td><span class="tag change">roles?</span></td></tr>
-          <tr><td>payment</td><td>Authorise at checkout, capture on delivery, refunds</td><td><span class="tag reuse">as is</span></td></tr>
-          <tr><td>notification</td><td>Every status change to the customer</td><td><span class="tag reuse">as is</span></td></tr>
-          <tr><td>order</td><td>The order and its lifecycle; restaurant and courier steps arrive as events</td><td><span class="tag change">check states</span></td></tr>
-          <tr><td>catalog</td><td>Menus, grouped by restaurant; modifiers in Release 1</td><td><span class="tag change">grouping, modifiers</span></td></tr>
-          <tr><td>cart</td><td>Basket, one restaurant per basket</td><td><span class="tag change">small rule</span></td></tr>
-          <tr><td>inventory</td><td>Probably not used: sold out is a flag, not a count</td><td><span class="tag change">open</span></td></tr>
-          <tr><td>fulfilment</td><td>Replaced by dispatch</td><td><span class="tag new">not used</span></td></tr>
-          <tr><td>restaurant-service</td><td>Restaurants, hours, zones, accept or reject, prep time, ready</td><td><span class="tag new">new</span></td></tr>
-          <tr><td>dispatch-service</td><td>Couriers online, offers, assignment, pick-up, delivery, tracking</td><td><span class="tag new">new</span></td></tr>
-        </tbody>
-      </table></div>
-    </div>
   </section>
 
   <section id="personas">
@@ -252,11 +232,11 @@ footer { color: var(--muted); font-size: 0.85rem; }
     <span class="eyebrow">Part 4</span>
     <h2>Open questions for you</h2>
     <ol class="qs">
-      <li><b>Roles in user-service, or separate accounts?</b>Restaurant staff and couriers need sign-in in Releases 1 and 2. Roles keep one identity service; it may be the first platform API change gfood asks for.</li>
-      <li><b>Authorise then capture, or charge at checkout?</b>Real platforms differ. Authorise-then-capture makes rejections cheap (release the hold); check what payment-service supports.</li>
-      <li><b>Order states: whose are they?</b>If order-service's lifecycle can't express "accepted, ready, picked up" without gfood nouns, those states live in restaurant- and dispatch-service, and order only knows placed, paid, completed, cancelled.</li>
+      <li><b>One identity with roles, or separate accounts?</b>Restaurant staff and couriers need sign-in in Releases 1 and 2.</li>
+      <li><b>Authorise then capture, or charge at checkout?</b>Real platforms differ. Authorise-then-capture makes rejections cheap (release the hold).</li>
+      <li><b>Order states: whose are they?</b>Who owns "accepted, ready, picked up": the order, or the restaurant and courier sides?</li>
       <li><b>Geography in the sandbox.</b>No map tiles or geocoding are reachable. A seeded grid of postcodes with coordinates and straight-line distance keeps dispatch and ETAs real enough.</li>
-      <li><b>Live updates.</b>Tracking wants push (SSE or WebSocket). gshop polls today; is a push channel a platform capability or a gfood one?</li>
+      <li><b>Live updates.</b>Tracking wants push (SSE or WebSocket). gshop polls today.</li>
       <li><b>One city, one zone for the skeleton?</b>Suggested: yes. Zones per restaurant arrive in Release 1.</li>
     </ol>
   </section>
@@ -294,7 +274,7 @@ const personas = [
     about: "Handles chats about late, missing and wrong orders, within refund rules the business sets.",
     goals: ["One view of an order's full timeline", "Refund an item or the order in one action", "Spot repeat claimers"],
     pains: ["Piecing events together from several screens", "Refund rules applied by hand"],
-    drives: "Order lookup and timeline (reuse gshop admin), refund or cancel, reassign courier." },
+    drives: "Order lookup and timeline, refund or cancel, reassign courier." },
 ];
 
 const activities = [
@@ -317,7 +297,7 @@ const releases = [
     receive: ["New order appears on the tablet"], accept: ["Accept the order"], cook: ["Mark the order ready"],
     online: ["~One courier, always online"], job: ["Assigned automatically when the restaurant accepts"], run: ["Mark picked up", "Mark delivered"],
     progress: ["See status: placed, accepted, ready, on the way, delivered"], notify: ["Email at each status change"],
-    lookup: ["See an order and its timeline (gshop admin)"] } },
+    lookup: ["See an order and its timeline"] } },
   { id: "R1", name: "A real kitchen", goal: "Restaurants control their side: options, sold out, hours, prep time, and saying no.", stories: {
     onboard: ["Staff sign in to the tablet"], menu: ["Options and extras on items", "Allergens per item", "Mark an item sold out"], hours: ["Opening hours", "Pause new orders when busy", "Delivery zone per restaurant"],
     browse: ["Closed and paused restaurants shown as such"], viewmenu: ["Sold-out items shown, not orderable", "Allergens on every item"],

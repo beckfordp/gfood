@@ -11,12 +11,10 @@ stories, APIs, events and UI.
 - Stories are written per release slice, in gluon's `docs/user-stories.md` format
   (US-N, tasks naming the service).
 
-## Platform boundary
-- Platform services (gluon `services/`) are used as they are. A needed change goes to
-  that service's own backlog, never into a copy or a gfood-specific code path in it.
-- gfood's own services hold gfood's nouns (restaurant, courier, offer).
-- Decisions that change a platform service are gluon ADRs; gfood-only decisions are
-  ADRs here.
+## Reuse
+- [Reuse is harvested](../README.md#reuse-is-harvested): gluon services as they are where
+  they fit; a `gf-` copy where gfood needs changes; generic changes raised as change
+  requests in the gluon service's backlog.
 
 ## Repo hygiene
 - Commits: `<type>(<scope>): <description>`, one line.

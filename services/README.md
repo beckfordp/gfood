@@ -1,8 +1,7 @@
 # services/
 
-gfood's own services, each its own independent git repo, gitignored here.
-None yet: `restaurant-service-rs` and
-`dispatch-service-rs` are planned (`../app.yaml`).
+gfood's services, each its own independent git repo, gitignored here: services of its
+own, and `gf-` copies of gluon services it needed to change (see
+[Reuse is harvested](../README.md#reuse-is-harvested)). None yet.
 
-Platform services (user, payment, notification, order, catalog, cart) live in
-gluon's `services/` and are never copied here.
+gluon services used as they are stay in gluon's `services/`.
