@@ -8,6 +8,9 @@
 - **Frontends:** React, TypeScript and Vite, as gshop (gluon ADR 0006). Each its own repo
   under `frontends/`.
 - **Runtime:** gluon's Kubernetes setup (Helm chart `infra/k8s/gluon`); gluon-kube in the
-  sandbox, OrbStack on the laptop.
+  sandbox, OrbStack on the laptop. gfood runs in its own cluster, `gfood-local`, as gshop
+  runs in `gluon-local`. gluon-kube serves only `gluon-local` today, so a configurable
+  cluster name is a change request to gluon-kube; namespaces, for several apps at once,
+  come later.
 - **Acceptance:** Playwright BDD, as gluon's `tests/acceptance` (gluon ADR 0023).
 - **This repo:** documentation and the application manifest; no code of its own yet.

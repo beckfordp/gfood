@@ -56,7 +56,7 @@ gluon's sandbox export carries gfood (`bin/lib/sandbox.py`, `SHARED_REPOS` and
 `SANDBOX_REPOS`); from gluon on the laptop:
 
 ```sh
-bin/sandbox-export --no-plans --prefix gfood     # gfood-gluon.tar.gz
+bin/sandbox-export --app gfood     # gfood-gluon.tar.gz: no Scala, no plans
 ```
 
 `bin/sandbox-save` in the sandbox brings gfood's commits back.
