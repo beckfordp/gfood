@@ -56,7 +56,9 @@ MIT, as gluon: [LICENSE](./LICENSE). Every file in gfood and its service and fro
 repos that takes a comment starts with `SPDX-License-Identifier: MIT` in that comment,
 after any shebang or doctype: Rust, TOML, YAML, Dockerfiles, shell, Python, SQL,
 TypeScript, HTML (`// …`, `# …`, `-- …`, `<!-- … -->`). Markdown, JSON, lockfiles,
-`.gitignore` and `LICENSE` don't take one. Each repo carries its own `LICENSE`.
+`.gitignore` and `LICENSE` don't take one. Nor do copied third-party files (they keep
+their own licence, named in a NOTICE beside them) or generated and captured output. Each
+repo carries its own `LICENSE`.
 
 ## In the sandbox
 gluon's sandbox export carries gfood (`bin/lib/sandbox.py`, `SHARED_REPOS` and
