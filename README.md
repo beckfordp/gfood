@@ -2,7 +2,7 @@
 
 A food-delivery application on the Gluon platform: customers order, restaurants cook,
 couriers deliver. The second application on gluon after gshop, and the first built as
-its own repo ([gluon ADR 0031](../../docs/adr/0031-multi-app-platform.md)).
+its own repo.
 
 Status: discovery. The domain, personas and story map are agreed; services and a
 frontend come next, built in the sandbox.

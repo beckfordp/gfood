@@ -84,7 +84,7 @@ before payment costs. A small-order fee usually tops up baskets under a minimum.
 
 ## How it lands on gluon
 
-First guess, per gluon ADR 0031: platform services reused as they are where their API
+First guess: platform services reused as they are where their API
 has no gfood nouns; new services written concretely for gfood. Also in
 [`../app.yaml`](../app.yaml).
 

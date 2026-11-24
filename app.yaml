@@ -1,4 +1,4 @@
-# gfood's application manifest (gluon ADR 0031, decision 3): the platform services it
+# gfood's application manifest: the platform services it
 # deploys its own instances of, and its own services. Read by people for now; gluon's
 # deploy tooling reads it once it supports applications.
 app: gfood

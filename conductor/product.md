@@ -1,9 +1,8 @@
 # Product Guide — gfood
 
 ## Context
-gfood is an application on the Gluon platform (gluon
-[ADR 0031](../../../docs/adr/0031-multi-app-platform.md)); the platform's own docs live
-in gluon's `docs/`. gfood's decisions are in [`../docs/adr/`](../docs/adr/).
+gfood is an application on the Gluon platform; the platform's own docs live in gluon's
+`docs/`. gfood's decisions are in [`../docs/adr/`](../docs/adr/).
 
 ## What this app does
 Food delivery: a three-sided marketplace where customers order from local restaurants

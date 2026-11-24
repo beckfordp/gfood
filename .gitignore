@@ -1,4 +1,4 @@
-# gfood's services and frontends are their own independent git repos (gluon ADR 0031).
+# gfood's services and frontends are their own independent git repos.
 services/*
 !services/README.md
 frontends/*

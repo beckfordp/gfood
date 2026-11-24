@@ -1,18 +1,17 @@
 # 0001. gfood on gluon: reuse, new services and the walking skeleton
 
 ## Status
-Proposed (2026-11-23). Follows gluon
-[ADR 0031](../../../../docs/adr/0031-multi-app-platform.md) (multi-app platform).
+Proposed (2026-11-23).
 
 ## Context
 gfood is a food-delivery application: a three-sided marketplace of customers,
 restaurants and couriers ([primer](../primer.md)). It is the first application built on
-gluon as its own repo, in Rust, and the first test of gluon ADR 0031's reuse rules.
+gluon as its own repo, in Rust, and the first test of gluon's reuse as a platform.
 The domain, personas and story map are agreed ([story map](../story-map.md)); the
 questions in [open-questions.md](../open-questions.md) are not.
 
 ## Decision
-1. **gfood follows gluon ADR 0031.** Its own repo at gluon's `apps/gfood`; its own
+1. **gfood is its own application on gluon.** Its own repo at gluon's `apps/gfood`; its own
    instances of the platform services it uses; its own namespace (`gfood`); its stories,
    ADRs and conductor here.
 2. **Platform services used as they are where they fit:** user, payment, notification,
@@ -37,7 +36,7 @@ questions in [open-questions.md](../open-questions.md) are not.
   updates, one zone) are each settled by an ADR here, or in gluon where a platform
   service changes, before the story that needs it.
 - gluon's deploy tooling doesn't yet read `app.yaml`; until it does, gfood can't be
-  deployed on its own (gluon ADR 0031, Consequences).
+  deployed on its own.
 
 ## Alternatives considered
 - **Prototype the frontend first.** Rejected as a first step: it leads with screens,
