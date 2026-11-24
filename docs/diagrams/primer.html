@@ -1,0 +1,372 @@
+<title>gfood Story Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a planning wall. Reading sections (primer, personas) at text width; the map breaks out full width on a board, scrolling sideways like a real wall of stickies. */
+:root {
+  --board: #edf1ef; --paper: #ffffff; --ink: #1b2421; --muted: #5a6662; --line: #cad3cf;
+  --accent: #0f6e66;
+  --act: #1f3b4a; --act-ink: #f4f8f7; --step: #d9e9f2; --story: #fff1ad; --story-edge: #e6d685;
+  --cust: #3451c6; --rest: #b8460f; --cour: #17803d; --supp: #7a3bd1;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --board: #111816; --paper: #19211f; --ink: #e5ecea; --muted: #9ba8a4; --line: #2d3835;
+  --accent: #3cc7b6;
+  --act: #2c5366; --act-ink: #f4f8f7; --step: #1d3240; --story: #3b3519; --story-edge: #5a5128;
+  --cust: #8ea2ff; --rest: #ff9a62; --cour: #5fd38b; --supp: #c39bff; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --board: #111816; --paper: #19211f; --ink: #e5ecea; --muted: #9ba8a4; --line: #2d3835;
+  --accent: #3cc7b6;
+  --act: #2c5366; --act-ink: #f4f8f7; --step: #1d3240; --story: #3b3519; --story-edge: #5a5128;
+  --cust: #8ea2ff; --rest: #ff9a62; --cour: #5fd38b; --supp: #c39bff; color-scheme: dark }
+
+body { background: var(--paper); color: var(--ink); font: 16px/1.55 var(--body); }
+.wrap { max-width: 68rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem 4rem; display: grid; gap: 3.5rem; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.7rem; font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font: 600 0.75rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 60ch; }
+header { display: grid; gap: 0.9rem; }
+section { display: grid; gap: 1.25rem; min-width: 0; }
+.stack { display: grid; gap: 0.75rem; }
+.muted { color: var(--muted); }
+nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.95rem; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sides { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+.side { border-top: 3px solid var(--c); padding-top: 0.75rem; display: grid; gap: 0.35rem; }
+.side h3 { color: var(--c); }
+.c-cust { --c: var(--cust); } .c-rest { --c: var(--rest); } .c-cour { --c: var(--cour); } .c-supp { --c: var(--supp); } .c-plat { --c: var(--accent); }
+
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); }
+th { font: 600 0.75rem/1.3 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--board); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+tr.total td { font-weight: 700; }
+.tag { font: 600 0.72rem/1 var(--mono); padding: 0.25rem 0.45rem; border-radius: 4px; white-space: nowrap; display: inline-block; }
+.tag.reuse { background: color-mix(in srgb, var(--cour) 16%, transparent); color: var(--cour); }
+.tag.change { background: color-mix(in srgb, var(--rest) 16%, transparent); color: var(--rest); }
+.tag.new { background: color-mix(in srgb, var(--cust) 16%, transparent); color: var(--cust); }
+
+ol.life { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; counter-reset: s; }
+ol.life li { counter-increment: s; display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--line); }
+ol.life li::before { content: counter(s); font: 600 0.85rem/1.6 var(--mono); color: var(--accent); }
+ol.life b { font-weight: 700; }
+.who { font: 600 0.7rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--c); margin-left: 0.4rem; }
+
+dl.gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.9rem 2rem; margin: 0; }
+dl.gloss div { display: grid; gap: 0.15rem; }
+dt { font-weight: 700; }
+dd { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.personas { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1.25rem; }
+.persona { border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.2rem; display: grid; gap: 0.7rem; align-content: start; min-width: 0; }
+.persona .head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+.persona .role { font: 600 0.72rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--c); }
+.persona h3 { font-size: 1.35rem; }
+.persona .quote { font-style: italic; border-left: 3px solid var(--c); padding-left: 0.75rem; }
+.persona ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.2rem; font-size: 0.95rem; }
+.persona .label { font: 600 0.7rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.persona .drives { font-size: 0.9rem; color: var(--muted); }
+
+/* The map: full-bleed board */
+.boardband { background: var(--board); border-block: 1px solid var(--line); }
+.boardinner { max-width: 68rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem; display: grid; gap: 1.25rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.88rem; color: var(--muted); align-items: center; }
+.legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 2px; vertical-align: -0.1rem; margin-right: 0.35rem; }
+.mapscroll { overflow-x: auto; padding-bottom: 0.75rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.map { display: grid; grid-auto-rows: auto; gap: 0.5rem; width: max-content; margin: 0 auto; }
+.card { border-radius: 3px; padding: 0.5rem 0.6rem; font-size: 0.84rem; line-height: 1.35; }
+.act { background: var(--act); color: var(--act-ink); font-family: var(--display); font-weight: 700; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0.6rem 0.7rem; }
+.act .who { color: var(--act-ink); opacity: 0.85; margin: 0; display: flex; align-items: center; gap: 0.35rem; }
+.act .who::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--c); }
+.step { background: var(--step); font-weight: 700; }
+.story { background: var(--story); box-shadow: 0 1px 0 var(--story-edge); }
+.story.ops { background: transparent; border: 1px dashed var(--story-edge); color: var(--muted); font-style: italic; }
+.slice { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 0.75rem; border-top: 2px solid var(--ink); padding-top: 0.45rem; margin-top: 0.6rem; flex-wrap: wrap; }
+.slice b { font-family: var(--display); font-size: 1.05rem; }
+.slice .rid { font: 600 0.75rem/1 var(--mono); color: var(--accent); }
+.slice span.goal { color: var(--muted); font-size: 0.9rem; }
+.cell { display: grid; gap: 0.4rem; align-content: start; }
+.later { columns: 16rem; column-gap: 2rem; padding-left: 1.1rem; margin: 0; }
+.later li { break-inside: avoid; margin-bottom: 0.3rem; }
+.qs { display: grid; gap: 0.9rem; padding-left: 1.3rem; margin: 0; }
+.qs li { max-width: 70ch; }
+.qs b { display: block; }
+footer { color: var(--muted); font-size: 0.85rem; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">gluon · second application · draft 1, 2026-11-23</span>
+    <h1>gfood: a food-delivery primer and story map</h1>
+    <p class="lede">A three-sided marketplace on gluon's services: customers order, restaurants cook, couriers deliver. What follows is the domain in one sitting, the people it serves, and a first cut of the map from walking skeleton to a trustworthy service.</p>
+    <nav aria-label="Sections"><a href="#primer">Primer</a><a href="#personas">Personas</a><a href="#map">Story map</a><a href="#questions">Open questions</a></nav>
+  </header>
+
+  <section id="primer">
+    <span class="eyebrow">Part 1</span>
+    <h2>The domain in one sitting</h2>
+    <p>Every order is a promise kept by three parties who never meet in advance. The platform's job is coordination under a clock: get hot food from a kitchen it doesn't run, by a courier it doesn't employ, to a customer who is watching the minutes.</p>
+    <div class="sides">
+      <div class="side c-cust"><h3>Customer</h3><p>Wants the food they chose, hot, when promised. Judges the service by the ETA and by how problems are fixed.</p></div>
+      <div class="side c-rest"><h3>Restaurant</h3><p>Wants extra orders without chaos at the pass. Controls the menu, what's sold out, opening hours and prep time.</p></div>
+      <div class="side c-cour"><h3>Courier</h3><p>Wants paid work with little waiting. Chooses when to be online and which jobs to take.</p></div>
+      <div class="side c-plat"><h3>Platform (gfood)</h3><p>Matches the three, sets fees and the ETA, takes the payment, pays out, and owns the refund when it goes wrong.</p></div>
+    </div>
+
+    <div class="stack">
+      <h3>Where the money goes</h3>
+      <p class="muted">An illustrative order. Real platforms' figures vary by market and contract; commissions in the 25–35% range are commonly published.</p>
+      <div class="tablebox"><table>
+        <thead><tr><th>Line</th><th>Paid by</th><th>Goes to</th><th style="text-align:right">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Two pizzas and a side</td><td>Customer</td><td>Restaurant, less commission</td><td class="num">£24.00</td></tr>
+          <tr><td>Delivery fee (distance-based)</td><td>Customer</td><td>Platform</td><td class="num">£2.49</td></tr>
+          <tr><td>Service fee (a % of the basket, capped)</td><td>Customer</td><td>Platform</td><td class="num">£1.20</td></tr>
+          <tr><td>Tip</td><td>Customer</td><td>Courier, in full</td><td class="num">£1.50</td></tr>
+          <tr class="total"><td>Customer pays</td><td></td><td></td><td class="num">£29.19</td></tr>
+          <tr><td>Commission at 30% of the basket</td><td>Restaurant</td><td>Platform</td><td class="num">−£7.20</td></tr>
+          <tr><td>Courier's job fee (distance plus waiting time)</td><td>Platform</td><td>Courier</td><td class="num">£4.10</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">So the restaurant receives £16.80, the courier £5.60, and the platform keeps £6.79 before payment costs. A small-order fee usually tops up baskets under a minimum.</p>
+    </div>
+
+    <div class="stack">
+      <h3>An order's life, against the clock</h3>
+      <ol class="life">
+        <li><span><b>Placed and paid.</b> Payment is authorised at checkout; the basket belongs to one restaurant only. <span class="who c-cust">customer</span></span></li>
+        <li><span><b>Restaurant notified.</b> The tablet sounds until someone acknowledges it. <span class="who c-rest">restaurant</span></span></li>
+        <li><span><b>Accepted, with a prep time.</b> Or rejected (sold out, too busy). No answer within a few minutes cancels the order automatically and refunds it. <span class="who c-rest">restaurant</span></span></li>
+        <li><span><b>ETA set.</b> Prep time plus courier travel; this is the promise the customer watches. <span class="who c-plat">platform</span></span></li>
+        <li><span><b>Courier dispatched.</b> Timed so the courier arrives as the food is ready, not before; an offer goes to one courier, who accepts or declines within seconds. <span class="who c-cour">courier</span></span></li>
+        <li><span><b>Food ready, picked up.</b> Waiting at the restaurant is the courier's biggest loss of earnings. <span class="who c-cour">courier</span></span></li>
+        <li><span><b>On the way.</b> The customer sees the courier move and the ETA update. <span class="who c-cust">customer</span></span></li>
+        <li><span><b>Delivered.</b> With proof (a photo or a code); payment captured, payouts accrue. <span class="who c-cour">courier</span></span></li>
+        <li><span><b>Afterwards.</b> Ratings, and any complaint: missing item, cold food, never arrived. <span class="who c-supp">support</span></span></li>
+      </ol>
+    </div>
+
+    <div class="stack">
+      <h3>Where it goes wrong</h3>
+      <div class="tablebox"><table>
+        <thead><tr><th>What happens</th><th>Usual handling</th></tr></thead>
+        <tbody>
+          <tr><td>Restaurant rejects or doesn't answer</td><td>Cancel, full refund, tell the customer at once</td></tr>
+          <tr><td>An item is sold out after ordering</td><td>Restaurant removes it (partial refund) or rejects the order</td></tr>
+          <tr><td>No courier accepts</td><td>Re-offer, widen the radius; after a limit, tell restaurant and customer, possibly cancel</td></tr>
+          <tr><td>Courier waits long at the restaurant</td><td>Courier paid for waiting; ETA updated</td></tr>
+          <tr><td>Customer can't be reached at the door</td><td>Contact attempts, a timer, then left or returned; usually no refund</td></tr>
+          <tr><td>Missing or wrong item</td><td>Support refunds the item; repeat claims flagged</td></tr>
+          <tr><td>Customer cancels</td><td>Free before the restaurant accepts; after that, usually charged</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="stack">
+      <h3>Words the domain uses</h3>
+      <dl class="gloss">
+        <div><dt>Basket</dt><dd>The order being built; always from one restaurant.</dd></div>
+        <div><dt>Modifiers (options, extras)</dt><dd>Size, toppings, "no onions". They change price and make the menu a tree, not a list.</dd></div>
+        <div><dt>Sold out ("86'd")</dt><dd>Kitchen slang for an item that has run out, toggled by staff during service.</dd></div>
+        <div><dt>Prep time</dt><dd>The restaurant's estimate on accepting; drives dispatch timing and the ETA.</dd></div>
+        <div><dt>Delivery zone</dt><dd>The area a restaurant delivers to; a postcode outside it sees the restaurant as unavailable.</dd></div>
+        <div><dt>Dispatch</dt><dd>Choosing a courier for an order and when to send them.</dd></div>
+        <div><dt>Offer</dt><dd>A job shown to one courier with a short accept window; declines pass it on.</dd></div>
+        <div><dt>Stacking (batching)</dt><dd>One courier carrying two orders on one trip. Efficient, and a source of late food.</dd></div>
+        <div><dt>Proof of delivery</dt><dd>Photo, handover code or signature, used to settle "never arrived" claims.</dd></div>
+        <div><dt>Commission</dt><dd>The platform's share of the basket, taken from the restaurant's payout.</dd></div>
+      </dl>
+    </div>
+
+    <div class="stack">
+      <h3>How it lands on gluon</h3>
+      <p class="muted">First guess, per ADR 0031: platform services reused as they are where their API has no gfood nouns; new services written concretely for gfood.</p>
+      <div class="tablebox"><table>
+        <thead><tr><th>Service</th><th>In gfood</th><th>Fit</th></tr></thead>
+        <tbody>
+          <tr><td>user</td><td>Customers, plus restaurant staff and couriers as roles</td><td><span class="tag change">roles?</span></td></tr>
+          <tr><td>payment</td><td>Authorise at checkout, capture on delivery, refunds</td><td><span class="tag reuse">as is</span></td></tr>
+          <tr><td>notification</td><td>Every status change to the customer</td><td><span class="tag reuse">as is</span></td></tr>
+          <tr><td>order</td><td>The order and its lifecycle; restaurant and courier steps arrive as events</td><td><span class="tag change">check states</span></td></tr>
+          <tr><td>catalog</td><td>Menus, grouped by restaurant; modifiers in Release 1</td><td><span class="tag change">grouping, modifiers</span></td></tr>
+          <tr><td>cart</td><td>Basket, one restaurant per basket</td><td><span class="tag change">small rule</span></td></tr>
+          <tr><td>inventory</td><td>Probably not used: sold out is a flag, not a count</td><td><span class="tag change">open</span></td></tr>
+          <tr><td>fulfilment</td><td>Replaced by dispatch</td><td><span class="tag new">not used</span></td></tr>
+          <tr><td>restaurant-service</td><td>Restaurants, hours, zones, accept or reject, prep time, ready</td><td><span class="tag new">new</span></td></tr>
+          <tr><td>dispatch-service</td><td>Couriers online, offers, assignment, pick-up, delivery, tracking</td><td><span class="tag new">new</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section id="personas">
+    <span class="eyebrow">Part 2</span>
+    <h2>Personas</h2>
+    <p>Five people, one per side plus a second customer whose needs differ in ways that matter (allergies, a bigger basket). Each card ends with the stories the persona drives.</p>
+    <div class="personas" id="personaList"></div>
+  </section>
+</div>
+
+<div class="boardband" id="map">
+  <div class="boardinner">
+    <span class="eyebrow">Part 3</span>
+    <h2>Story map</h2>
+    <p>The backbone runs left to right in the order the work happens across all three sides. Each slice below a line is a release: a thin, usable path end to end, not a component. Scroll sideways along the wall.</p>
+    <div class="legend">
+      <span><i style="background:var(--act)"></i>Activity</span>
+      <span><i style="background:var(--step)"></i>Step</span>
+      <span><i style="background:var(--story)"></i>Story</span>
+      <span><i style="border:1px dashed var(--story-edge)"></i>Seeded, not built</span>
+      <span class="c-cust"><i style="background:var(--c);border-radius:50%"></i>Customer</span>
+      <span class="c-rest"><i style="background:var(--c);border-radius:50%"></i>Restaurant</span>
+      <span class="c-cour"><i style="background:var(--c);border-radius:50%"></i>Courier</span>
+      <span class="c-supp"><i style="background:var(--c);border-radius:50%"></i>Support</span>
+    </div>
+  </div>
+  <div class="mapscroll"><div class="map" id="storyMap" role="table" aria-label="gfood story map"></div></div>
+  <div class="boardinner">
+    <h3>Later, not sliced yet</h3>
+    <ul class="later">
+      <li>Vouchers and promotions</li><li>Scheduled orders</li><li>Collection instead of delivery</li>
+      <li>Group orders</li><li>Stacked deliveries</li><li>Busy-time pricing</li><li>Subscription (free delivery)</li>
+      <li>Search and filter by cuisine or diet</li><li>Favourites, saved addresses</li><li>Chains with many sites</li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="questions">
+    <span class="eyebrow">Part 4</span>
+    <h2>Open questions for you</h2>
+    <ol class="qs">
+      <li><b>Roles in user-service, or separate accounts?</b>Restaurant staff and couriers need sign-in in Releases 1 and 2. Roles keep one identity service; it may be the first platform API change gfood asks for.</li>
+      <li><b>Authorise then capture, or charge at checkout?</b>Real platforms differ. Authorise-then-capture makes rejections cheap (release the hold); check what payment-service supports.</li>
+      <li><b>Order states: whose are they?</b>If order-service's lifecycle can't express "accepted, ready, picked up" without gfood nouns, those states live in restaurant- and dispatch-service, and order only knows placed, paid, completed, cancelled.</li>
+      <li><b>Geography in the sandbox.</b>No map tiles or geocoding are reachable. A seeded grid of postcodes with coordinates and straight-line distance keeps dispatch and ETAs real enough.</li>
+      <li><b>Live updates.</b>Tracking wants push (SSE or WebSocket). gshop polls today; is a push channel a platform capability or a gfood one?</li>
+      <li><b>One city, one zone for the skeleton?</b>Suggested: yes. Zones per restaurant arrive in Release 1.</li>
+    </ol>
+  </section>
+  <footer>Draft for review. Comment on any card or row; the agreed map becomes <code>apps/gfood/docs/user-stories.md</code>.</footer>
+</div>
+
+<script>
+const personas = [
+  { c: "cust", role: "Customer", name: "Asha, 34", tag: "weeknight regular",
+    quote: "Tell me when it'll be here, and tell me straight away if that changes.",
+    about: "Product manager, works late, orders two or three times a week, usually the same few places. Orders on the phone on the way home.",
+    goals: ["An ETA that holds", "Reorder a favourite in two taps", "Problems fixed without a phone call"],
+    pains: ["ETAs that slip without a word", "A missing side and a refund form", "Paying a fee she didn't see coming"],
+    drives: "ETA and progress, notifications, fee breakdown, reorder, report a problem." },
+  { c: "cust", role: "Customer", name: "Dan, 41", tag: "Friday family order",
+    quote: "My son has a nut allergy. If I can't trust the menu, I won't order.",
+    about: "Orders for four on Friday nights; a bigger basket with options for each child. Reads every item's details.",
+    goals: ["Allergen information he can trust", "Options per item (no cheese, small size)", "Food arriving together and hot"],
+    pains: ["Allergens missing or vague", "An item silently swapped", "A cold half of the order"],
+    drives: "Modifiers, allergens, sold-out items shown before ordering, partial refunds." },
+  { c: "rest", role: "Restaurant", name: "Rosa, 52", tag: "owner, 30-seat pizzeria",
+    quote: "Friday at eight I've got one hand on the oven. The tablet has to be simple or it gets ignored.",
+    about: "Runs a busy neighbourhood pizzeria; delivery is a fifth of revenue. The tablet sits at the pass.",
+    goals: ["Never miss an order", "Pause new orders when the kitchen is slammed", "Mark the burrata sold out in one tap"],
+    pains: ["Couriers crowding the door too early", "Orders auto-cancelled while she's plating", "Commission she can't reconcile"],
+    drives: "Accept with prep time, pause, sold out, timed dispatch, payout statement." },
+  { c: "cour", role: "Courier", name: "Kofi, 27", tag: "part-time e-bike courier",
+    quote: "Every minute I stand at a counter is a minute I'm not paid for.",
+    about: "Studies by day, rides evenings and weekends. Chooses when to be online; compares earnings per hour across apps.",
+    goals: ["Jobs close by, with the fee shown up front", "Food ready when he arrives", "Clear drop-off details"],
+    pains: ["Long waits at restaurants", "Wrong or vague addresses", "Not knowing what a job pays until after"],
+    drives: "Online/offline, offers with fee, decline, waiting time paid, proof of delivery, earnings." },
+  { c: "supp", role: "Support", name: "Mei, 29", tag: "customer-care agent",
+    quote: "Show me the whole timeline and I can fix it in a minute.",
+    about: "Handles chats about late, missing and wrong orders, within refund rules the business sets.",
+    goals: ["One view of an order's full timeline", "Refund an item or the order in one action", "Spot repeat claimers"],
+    pains: ["Piecing events together from several screens", "Refund rules applied by hand"],
+    drives: "Order lookup and timeline (reuse gshop admin), refund or cancel, reassign courier." },
+];
+
+const activities = [
+  { name: "Get set up", c: "rest", who: "Restaurant", steps: [["onboard", "Join gfood"], ["menu", "Build the menu"], ["hours", "Set hours and area"]] },
+  { name: "Find food", c: "cust", who: "Customer", steps: [["address", "Set address"], ["browse", "Browse restaurants"], ["viewmenu", "Read a menu"]] },
+  { name: "Choose and pay", c: "cust", who: "Customer", steps: [["basket", "Fill a basket"], ["checkout", "Check out"]] },
+  { name: "Prepare", c: "rest", who: "Restaurant", steps: [["receive", "Receive the order"], ["accept", "Accept or reject"], ["cook", "Cook and hand over"]] },
+  { name: "Deliver", c: "cour", who: "Courier", steps: [["online", "Go online"], ["job", "Take a job"], ["run", "Pick up, drop off"], ["paid", "Get paid"]] },
+  { name: "Wait for it", c: "cust", who: "Customer", steps: [["progress", "Follow progress"], ["notify", "Hear what changed"]] },
+  { name: "Afterwards", c: "cust", who: "Customer", steps: [["rate", "Rate"], ["report", "Report a problem"], ["reorder", "Order again"]] },
+  { name: "Make it right", c: "supp", who: "Support", steps: [["lookup", "Look up an order"], ["resolve", "Refund or cancel"]] },
+];
+
+// "~" marks a seeded stand-in rather than a built story.
+const releases = [
+  { id: "R0", name: "Walking skeleton", goal: "One seeded restaurant, one seeded courier: an order goes from basket to door, touching every side.", stories: {
+    onboard: ["~Restaurants seeded"], menu: ["~Menu seeded: names, prices"], hours: ["~Always open; one zone of seeded postcodes"],
+    address: ["Enter a postcode; told if it's outside the zone"], browse: ["See restaurants that deliver to me"], viewmenu: ["See items and prices"],
+    basket: ["Add, change quantity, remove", "One restaurant per basket"], checkout: ["Pay with a saved test card", "See total with delivery fee"],
+    receive: ["New order appears on the tablet"], accept: ["Accept the order"], cook: ["Mark the order ready"],
+    online: ["~One courier, always online"], job: ["Assigned automatically when the restaurant accepts"], run: ["Mark picked up", "Mark delivered"],
+    progress: ["See status: placed, accepted, ready, on the way, delivered"], notify: ["Email at each status change"],
+    lookup: ["See an order and its timeline (gshop admin)"] } },
+  { id: "R1", name: "A real kitchen", goal: "Restaurants control their side: options, sold out, hours, prep time, and saying no.", stories: {
+    onboard: ["Staff sign in to the tablet"], menu: ["Options and extras on items", "Allergens per item", "Mark an item sold out"], hours: ["Opening hours", "Pause new orders when busy", "Delivery zone per restaurant"],
+    browse: ["Closed and paused restaurants shown as such"], viewmenu: ["Sold-out items shown, not orderable", "Allergens on every item"],
+    basket: ["Choose options; price updates"], checkout: ["Fee breakdown: delivery, service, small order"],
+    receive: ["Tablet sounds until acknowledged"], accept: ["Reject with a reason; customer refunded", "No answer in time: cancelled and refunded"], cook: ["Set prep time on accepting"],
+    progress: ["ETA from prep time"], notify: ["Told at once on rejection or cancellation"] } },
+  { id: "R2", name: "Real dispatch", goal: "Couriers choose work; jobs are offered, timed to the food, and tracked to the door.", stories: {
+    online: ["Courier signs in, goes online and offline", "Location shared while online"],
+    job: ["Offer to the nearest courier, with the fee", "Decline or let expire; offered to the next", "Sent so arrival matches ready time", "Nobody accepts: restaurant and customer told"],
+    run: ["Directions to restaurant, then customer", "Proof of delivery: photo or code", "Customer not answering: timer, then left"],
+    paid: ["Fee per job, earnings today", "Waiting time paid"],
+    progress: ["Courier on a map; ETA updates"], resolve: ["Reassign a courier"] } },
+  { id: "R3", name: "Trust and care", goal: "When something goes wrong, it is put right quickly and fairly.", stories: {
+    checkout: ["Tip the courier"], progress: ["Cancel free before the restaurant accepts"],
+    rate: ["Rate the food and the delivery"], report: ["Report a missing or wrong item"], reorder: ["Reorder a past order"],
+    hours: ["Payout statement with commission"], paid: ["Weekly earnings statement"],
+    resolve: ["Refund an item", "Cancel and refund an order", "Flag repeat claims"] } },
+];
+
+const esc = s => s.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+document.getElementById("personaList").innerHTML = personas.map(p => `
+  <article class="persona c-${p.c}">
+    <div class="head"><h3>${esc(p.name)}</h3><span class="role">${esc(p.role)} · ${esc(p.tag)}</span></div>
+    <p class="quote">“${esc(p.quote)}”</p>
+    <p>${esc(p.about)}</p>
+    <div><span class="label">Goals</span><ul>${p.goals.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    <div><span class="label">Frustrations</span><ul>${p.pains.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    <p class="drives"><b>Drives:</b> ${esc(p.drives)}</p>
+  </article>`).join("");
+
+const steps = activities.flatMap(a => a.steps.map(([id, name]) => ({ id, name })));
+const map = document.getElementById("storyMap");
+map.style.gridTemplateColumns = `repeat(${steps.length}, 9.5rem)`;
+let html = "";
+let col = 1;
+for (const a of activities) {
+  html += `<div class="card act c-${a.c}" role="columnheader" style="grid-column:${col} / span ${a.steps.length}"><span>${esc(a.name)}</span><span class="who">${esc(a.who)}</span></div>`;
+  col += a.steps.length;
+}
+html += steps.map(s => `<div class="card step" role="columnheader">${esc(s.name)}</div>`).join("");
+for (const r of releases) {
+  html += `<div class="slice" role="row"><span class="rid">${r.id}</span><b>${esc(r.name)}</b><span class="goal">${esc(r.goal)}</span></div>`;
+  html += steps.map(s => {
+    const items = r.stories[s.id] || [];
+    return `<div class="cell" role="cell">${items.map(t => t.startsWith("~")
+      ? `<div class="card story ops">${esc(t.slice(1))}</div>`
+      : `<div class="card story">${esc(t)}</div>`).join("")}</div>`;
+  }).join("");
+}
+map.innerHTML = html;
+</script>
