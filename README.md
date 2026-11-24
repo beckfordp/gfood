@@ -5,7 +5,7 @@ first application built on the Gluon platform as its own repo; gshop, the exempl
 platform grew with, stays inside gluon.
 
 Status: discovery. The domain, personas and story map are agreed; how gfood uses gluon,
-its services and its frontends come next, worked out in the sandbox.
+its services and its frontends come next.
 
 ## Start here
 - [Primer](./docs/primer.md): the domain in one sitting
