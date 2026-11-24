@@ -51,6 +51,13 @@ gfood/
 
 gfood lives in gluon's checkout at `apps/gfood`, its own repo, gitignored by gluon.
 
+## License
+MIT, as gluon: [LICENSE](./LICENSE). Every file in gfood and its service and frontend
+repos that takes a comment starts with `SPDX-License-Identifier: MIT` in that comment,
+after any shebang or doctype: Rust, TOML, YAML, Dockerfiles, shell, Python, SQL,
+TypeScript, HTML (`// …`, `# …`, `-- …`, `<!-- … -->`). Markdown, JSON, lockfiles,
+`.gitignore` and `LICENSE` don't take one. Each repo carries its own `LICENSE`.
+
 ## In the sandbox
 gluon's sandbox export carries gfood (`bin/lib/sandbox.py`, `SHARED_REPOS` and
 `SANDBOX_REPOS`); from gluon on the laptop:
